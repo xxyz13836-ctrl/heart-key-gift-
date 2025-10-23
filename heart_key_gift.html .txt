@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heart-Key Gift</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffe4e1; /* warm blush */
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+
+  .container {
+    position: relative;
+    width: 300px;
+    height: 400px;
+  }
+
+  .heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    transform: translate(-50%, -50%);
+    background: red;
+    clip-path: polygon(50% 0%, 61% 14%, 75% 25%, 90% 40%, 100% 60%, 90% 80%, 75% 95%, 50% 100%, 25% 95%, 10% 80%, 0% 60%, 10% 40%, 25% 25%, 39% 14%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.6s;
+    box-shadow: 0 0 20px rgba(255,0,0,0.5);
+  }
+
+  .heart.open {
+    transform: translate(-50%, -50%) scale(1.2) rotateY(180deg);
+  }
+
+  .initials {
+    color: gold;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    z-index: 2;
+    position: absolute;
+  }
+
+  .key {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 1s ease, opacity 1s ease;
+    opacity: 0;
+  }
+
+  .key.show {
+    transform: translate(-50%, -150%) scale(1);
+    opacity: 1;
+  }
+
+  .message {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: #800000;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+
+  .message.show {
+    opacity: 1;
+  }
+
+  .signature {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #b22222;
+    opacity: 0;
+    transition: opacity 2s ease;
+  }
+
+  .signature.show {
+    opacity: 1;
+  }
+
+  /* Rose petals effect */
+  .petal {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: pink;
+    border-radius: 50%;
+    animation: float 5s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0) rotate(0deg);}
+    50% { transform: translateY(-200px) translateX(50px) rotate(45deg);}
+    100% { transform: translateY(-400px) translateX(-30px) rotate(90deg);}
+  }
+
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="heart" id="heart">
+    <div class="initials">J ♡ D 👑</div>
+  </div>
+  <img src="https://cdn-icons-png.flaticon.com/512/69/69524.png" class="key" id="key">
+  <div class="message" id="message">
+    You are the only one who holds the key to me — and today, I place it in your hands forever.
+    <div class="signature" id="signature">— J♡you</div>
+  </div>
+</div>
+
+<script>
+  const heart = document.getElementById('heart');
+  const key = document.getElementById('key');
+  const message = document.getElementById('message');
+  const signature = document.getElementById('signature');
+
+  heart.addEventListener('click', () => {
+    heart.classList.add('open');
+    setTimeout(() => {
+      key.classList.add('show');
+      message.classList.add('show');
+      signature.classList.add('show');
+    }, 600);
+  });
+
+  // Generate petals
+  const container = document.querySelector('.container');
+  for(let i=0;i<15;i++){
+    const petal = document.createElement('div');
+    petal.className='petal';
+    petal.style.left=Math.random()*100+'%';
+    petal.style.animationDelay = (Math.random()*5)+'s';
+    petal.style.width = (10+Math.random()*15)+'px';
+    petal.style.height = petal.style.width;
+    container.appendChild(petal);
+  }
+
+</script>
+</body>
+</html>
